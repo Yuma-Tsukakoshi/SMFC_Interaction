@@ -2,6 +2,17 @@ import serial
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import random, datetime
+import os
+
+# make directory
+make_dir_path = f"data/{datetime.datetime.now().strftime('%Y-%m-%d')}"
+
+# detect target directory
+if os.path.isdir(make_dir_path):
+    pass
+else:
+    os.makedirs(make_dir_path)
+
 # Open serial port
 ser = serial.Serial('COM7', 38400)
 #  ls /dev/tty.*
@@ -11,8 +22,10 @@ window_timestamps = []
 window_data_values = []
 
 # Initialize data export
-save_path = f'{datetime.datetime.now()}-80-500N-54mm-voltage-10k-300N-stable-data.csv'
-save_path = save_path.replace(":", "-")
+
+save_file_name = f'{datetime.datetime.now()}-80-500N-54mm-voltage-10k-300N-stable-data.csv'
+save_file_name = save_file_name.replace(":", "-")
+save_path = f"{make_dir_path}/{save_file_name}"
 with open(save_path, 'a') as f:
     f.write(f"timestamp, voltage\n")
 # Initialize plot
