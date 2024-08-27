@@ -7,9 +7,9 @@ import numpy as np
 import re
 
 voltage_list = [
-    "2024-08-22 15-41-24.219176-80-500N-54mm-voltage-10k-data",
-    "2024-08-22 15-45-46.032379-80-500N-54mm-voltage-10k-data",
-    "2024-08-22 15-53-56.003033-80-500N-54mm-voltage-10k-data"
+    "2024-08-22 15-41-24.219176-80VWC-500N-54mm-voltage-10k-data",
+    "2024-08-22 15-45-46.032379-80VWC-500N-54mm-voltage-10k-data",
+    "2024-08-22 15-53-56.003033-80VWC-500N-54mm-voltage-10k-data"
 ]
 
 force_list = [
