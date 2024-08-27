@@ -6,7 +6,6 @@ import pandas as pd
 import numpy as np
 
 # 前提: 各々データの名前を識別できるようにする 保存名はforce_loggerとforce_voltageで同じ名前とする
-
 file_name = ""
 # 2024-12-31-50VWC-45mm-10k-50N-stable-grasp-test
 date_name = file_name.split("-")[0]
