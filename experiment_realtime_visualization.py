@@ -23,7 +23,7 @@ window_data_values = []
 
 # Initialize data export
 
-save_file_name = f'{datetime.datetime.now()}-50VWC-45mm-10k-50N-stable-grasp-test.csv'
+save_file_name = f'{datetime.datetime.now()}-50VWC-45mm-10k-50N-stable.csv'
 save_file_name = save_file_name.replace(":", "-")
 save_path = f"{make_dir_path}/{save_file_name}"
 with open(save_path, 'a') as f:
