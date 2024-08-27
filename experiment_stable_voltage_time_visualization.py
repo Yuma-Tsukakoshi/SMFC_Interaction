@@ -44,6 +44,9 @@ for i, (voltage_file_name, force_file_name) in enumerate(zip(voltage_list, force
     voltage_initial_idx = voltage_voltage[voltage_voltage == INITIAL_VOLTAGE].idxmin()
     voltage_initial_time = force_return_zero_idx-voltage_initial_idx
 
+    i = "Test Case " + str(i+1)
+    label_name = i
+
     ax1.bar(i, voltage_initial_time, label=label_name, alpha=0.6)
     ax1.text(i, voltage_initial_time, f"{voltage_initial_time} [s]", ha='center', va='bottom')
 
