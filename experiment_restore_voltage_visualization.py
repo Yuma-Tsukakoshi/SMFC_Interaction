@@ -1,3 +1,5 @@
+# 0N ~ 200N ~ 0Nの電圧を測定する (VWC: 50, 70, 90で実施予定)
+# voltageとindexの関係を示すのみ(200Nのmax時を合わせる感じで行う)
 import os
 import datetime
 import serial
@@ -6,38 +8,53 @@ import pandas as pd
 import numpy as np
 import re
 
-file_list = ["2024-08-22 14-40-18.227579-80-500N-94mm-voltage-10k-data",
-            #  "2024-08-22 14-44-47.262451-80-500N-94mm-voltage-10k-data",
-            #  "2024-08-22 15-35-48.530461-80-500N-94mm-voltage-10k-data",
-            #  "2024-08-22 15-41-24.219176-80-500N-54mm-voltage-10k-data",
-            #  "2024-08-22 15-45-46.032379-80-500N-54mm-voltage-10k-data",
-            #  "2024-08-22 15-53-56.003033-80-500N-54mm-voltage-10k-data",
+voltage_list = [
+    "2024-08-22 15-41-24.219176-80VWC-500N-54mm-voltage-10k-data",
+    "2024-08-22 15-45-46.032379-80VWC-500N-54mm-voltage-10k-data",
+    "2024-08-22 15-53-56.003033-80VWC-500N-54mm-voltage-10k-data"
 ]
 
+fig, ax1 = plt.subplots(figsize=(18, 8))
 
-fig, ax1 = plt.subplots(figsize=(18, 6))  
 
-for file_name in file_list:
-    matches = re.findall(r'-(\d+)N', file_name)
-    if matches:
-        number_before_last_N = matches[-1]
-        label_name = f"{number_before_last_N}N"
+def get_resampling_data(data, move_idx):
+    if move_idx == 0:
+        return data
+    else:
+        return pd.concat([pd.Series([data.min()] * move_idx), data], ignore_index=True)
 
+
+def date_name_to_date(file_name):
     date_name = " ".join(file_name.split("-")[0:3])
     date_list = date_name.split()[0:3]
-    date = "-".join(date_list)
+    return "-".join(date_list)
 
-    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{file_name}.csv")
+max_idx_list = []
+for i, voltage_file_name in enumerate(voltage_list):
+    date = date_name_to_date(voltage_file_name)
+    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
     voltage = voltage.set_index("timestamp").reset_index()
     voltage_voltage = voltage[" voltage"]
-    ax1.plot(voltage.index, voltage_voltage, label=label_name, alpha=0.7)
+    max_idx_list.append(voltage_voltage.idxmax())
 
+max_voltage_idx = max(max_idx_list)
+
+move_idx_list = [] 
+for max_idx in max_idx_list:
+    move_idx = abs(max_idx - max_voltage_idx)
+    move_idx_list.append(move_idx)
+
+for i, (voltage_file_name, move_idx) in enumerate(zip(voltage_list, move_idx_list)):
+    date = date_name_to_date(voltage_file_name)
+    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
+    voltage = voltage.set_index("timestamp").reset_index()
+    voltage_voltage = voltage[" voltage"]
+    voltage_voltage = get_resampling_data(voltage_voltage, move_idx)
+    ax1.plot(voltage_voltage.index, voltage_voltage, label=f"Voltage Test {i+1}", alpha=0.6)
 
 ax1.set_xlabel("time")
 ax1.set_ylabel("voltage")
 ax1.legend(loc='best') 
-ax1.title.set_text("Voltage Stability Test")
+ax1.title.set_text("Restore Voltage Visualization")
 ax1.grid()
 plt.show()
-
-
