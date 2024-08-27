@@ -5,7 +5,7 @@ import random, datetime
 import os
 
 # make directory
-make_dir_path = f"data/{datetime.datetime.now().strftime('%Y-%m-%d')}"
+make_dir_path = f"force_voltage/{datetime.datetime.now().strftime('%Y-%m-%d')}"
 
 # detect target directory
 if os.path.isdir(make_dir_path):
@@ -23,7 +23,7 @@ window_data_values = []
 
 # Initialize data export
 
-save_file_name = f'{datetime.datetime.now()}-80-500N-54mm-voltage-10k-300N-stable-data.csv'
+save_file_name = f'{datetime.datetime.now()}-50VWC-45mm-10k-50N-stable.csv'
 save_file_name = save_file_name.replace(":", "-")
 save_path = f"{make_dir_path}/{save_file_name}"
 with open(save_path, 'a') as f:
