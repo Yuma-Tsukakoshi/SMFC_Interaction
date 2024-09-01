@@ -32,7 +32,7 @@ def date_name_to_date(file_name):
 max_idx_list = []
 for i, voltage_file_name in enumerate(voltage_list):
     date = date_name_to_date(voltage_file_name)
-    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
+    voltage = pd.read_csv(f"data/force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
     voltage = voltage.set_index("timestamp").reset_index()
     voltage_voltage = voltage[" voltage"]
     max_idx_list.append(voltage_voltage.idxmax())
@@ -46,7 +46,7 @@ for max_idx in max_idx_list:
 
 for i, (voltage_file_name, move_idx) in enumerate(zip(voltage_list, move_idx_list)):
     date = date_name_to_date(voltage_file_name)
-    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
+    voltage = pd.read_csv(f"data/force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
     voltage = voltage.set_index("timestamp").reset_index()
     voltage_voltage = voltage[" voltage"]
     voltage_voltage = get_resampling_data(voltage_voltage, move_idx)

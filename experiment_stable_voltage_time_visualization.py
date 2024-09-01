@@ -32,11 +32,11 @@ for i, (voltage_file_name, force_file_name) in enumerate(zip(voltage_list, force
     date_list = date_name.split()[0:3]
     date = "-".join(date_list)
 
-    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
+    voltage = pd.read_csv(f"data/force_voltage/force-voltage-{date}/{voltage_file_name}.csv")
     voltage = voltage.set_index("timestamp").reset_index()
     voltage_voltage = voltage[" voltage"]
 
-    force = pd.read_csv(f"force_logger/force-logger-{date}/{force_file_name}.csv", skiprows=5)
+    force = pd.read_csv(f"data/force_logger/force-logger-{date}/{force_file_name}.csv", skiprows=5)
     force = force.set_index("番号").reset_index()
     force_force = force["荷重"]
 

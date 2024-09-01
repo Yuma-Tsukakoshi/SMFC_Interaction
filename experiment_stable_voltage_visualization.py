@@ -28,7 +28,7 @@ for file_name in file_list:
     date_list = date_name.split()[0:3]
     date = "-".join(date_list)
 
-    voltage = pd.read_csv(f"force_voltage/force-voltage-{date}/{file_name}.csv")
+    voltage = pd.read_csv(f"data/force_voltage/force-voltage-{date}/{file_name}.csv")
     voltage = voltage.set_index("timestamp").reset_index()
     voltage_voltage = voltage[" voltage"]
     voltage_max = voltage_voltage.max()

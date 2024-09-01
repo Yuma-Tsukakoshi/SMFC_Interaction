@@ -5,7 +5,7 @@ import random, datetime
 import os
 
 # make directory
-make_dir_path = f"force_voltage/{datetime.datetime.now().strftime('%Y-%m-%d')}"
+make_dir_path = f"data/force_voltage/{datetime.datetime.now().strftime('%Y-%m-%d')}"
 
 # detect target directory
 if os.path.isdir(make_dir_path):
