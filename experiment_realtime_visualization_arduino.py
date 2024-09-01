@@ -43,7 +43,7 @@ ax.set_title("Realtime Visualization & Record")
 def update(frame):
     # Read serial data
     line_data = ser.readline().decode().strip()  # Read and decode serial data
-    data, _, _ = map(float, line_data.split(','))  # Extract data
+    data, _, _= map(float, line_data.split(','))  # Extract data
 
     # Adding voltage value to the window list
     window_data_values.append(float(data))
